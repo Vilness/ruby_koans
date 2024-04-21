@@ -15,32 +15,32 @@ class AboutSymbols < Neo::Koan
     assert_equal false, symbol1 == symbol3
   end
 
-  #def test_identical_symbols_are_a_single_internal_object
-  #  symbol1 = :a_symbol
-  #  symbol2 = :a_symbol
-  #
-  #  assert_equal true, symbol1 == symbol2
-  #  assert_equal __, symbol1.equal?(symbol2)
-  #end
-  #
-  #def test_method_names_become_symbols
-  #  symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
-  #  assert_equal __, symbols_as_strings.include?('test_method_names_become_symbols')
-  #end
+  def test_identical_symbols_are_a_single_internal_object
+    symbol1 = :a_symbol
+    symbol2 = :a_symbol
+
+    assert_equal true, symbol1 == symbol2
+    assert_equal true, symbol1.equal?(symbol2)
+  end
+
+  def test_method_names_become_symbols
+    symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+    assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
+  end
 
   # THINK ABOUT IT:
   #
   # Why do we convert the list of symbols to strings and then compare
   # against the string value rather than against symbols?
 
-  #in_ruby_version('mri') do
-  #  RubyConstant = 'What is the sound of one hand clapping?'
-  #  def test_constants_become_symbols
-  #    all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
-  #
-  #    assert_equal __, all_symbols_as_strings.include?(__)
-  #  end
-  #end
+  in_ruby_version('mri') do
+    RubyConstant = 'What is the sound of one hand clapping?'
+    def test_constants_become_symbols
+      all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+
+      assert_equal true, all_symbols_as_strings.include?('RubyConstant')
+    end
+  end
 
   def test_symbols_can_be_made_from_strings
     string = 'catsAndDogs'
@@ -83,12 +83,12 @@ class AboutSymbols < Neo::Koan
   # strings", though they are immutable. None of the
   # interesting string operations are available on symbols.
 
-  #def test_symbols_cannot_be_concatenated
-  #  # Exceptions will be pondered further down the path
-  #  assert_raise(___) do
-  #    :cats + :dogs
-  #  end
-  #end
+  def test_symbols_cannot_be_concatenated
+    # Exceptions will be pondered further down the path
+    assert_raise(NoMethodError) do
+      :cats + :dogs
+    end
+  end
 
   def test_symbols_can_be_dynamically_created
     assert_equal :catsdogs, ('cats' + 'dogs').to_sym
