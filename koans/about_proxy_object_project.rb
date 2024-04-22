@@ -27,6 +27,13 @@ class Proxy
     @object.send(sym, *args, &block)
   end
 
+  def called?(method)
+    @messages.include?(method)
+  end
+
+  def number_of_times_called(method)
+    @messages.select { |mes| mes == method }.size
+  end
 end
 
 # The proxy object should pass the following Koan:
